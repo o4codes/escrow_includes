@@ -3,9 +3,10 @@ name = "escrow-includes"
 version = "0.1.0"
 description = "general lib utils for escrow backend service"
 authors = ["o4codes <oforkansi.shadrach@gmail.com>"]
+packages = [{ include = "src/escrow_includes" }]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.9"
 Django = "^4.2.7"
 djangorestframework = "^3.14.0"
 pydantic = "1.10"

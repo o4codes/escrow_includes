@@ -41,7 +41,5 @@ def api_exception_handler(exc, context: Dict[str, Any]):
             details=exc.get_full_details(),
             timestamp=timezone.now().timestamp(),
         )
-        return Response(
-            error_response, status=exc.status_code, headers=headers
-            )
+        return Response(error_response, status=exc.status_code, headers=headers)
     raise exceptions.APIException("Error occurred during error handling")

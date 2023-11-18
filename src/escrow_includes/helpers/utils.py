@@ -1,33 +1,5 @@
 import re
-from typing import Any, Callable, Iterable, Set, Union
-
-from django.db import models
-from rest_framework import serializers
-
-
-def model_to_dict(
-    instance: models.Model,
-    exclude_fields: Set[str] = None,
-) -> Union[dict, list]:
-    """
-    Convert a model instance to dict.
-    """
-
-    if exclude_fields is None:
-        exclude_fields = set()
-    exclude_fields = {
-        field for field in exclude_fields if hasattr(instance, field)
-    }
-
-    class Serializer(serializers.ModelSerializer):
-
-        class Meta:
-            model = type(instance)
-            depth = 1
-            exclude = tuple(exclude_fields)
-
-    serializer = Serializer(instance)
-    return serializer.data
+from typing import Any, Callable, Iterable
 
 
 def only(func: Callable[[Any], bool], values: Iterable):
@@ -43,9 +15,7 @@ def only(func: Callable[[Any], bool], values: Iterable):
     return len(list(filter(func(), values))) == 1
 
 
-def slugify(
-    text: str, replacement_char: str = "_", max_length: int = None
-) -> str:
+def slugify(text: str, replacement_char: str = "_", max_length: int = None) -> str:
     """
     Normalizes a string by
     Removing all special characters and replacing with a specified character
@@ -58,3 +28,6 @@ def slugify(
     if max_length is not None and len(text) > max_length:
         text = text[:max_length]
     return text
+
+
+__all__ = ["only", "slugify"]
